@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import TodoListItem from './TodoListItem'
 
+// https://scotch.io/tutorials/create-a-simple-to-do-app-with-react
+
 export default class TodoMain extends Component {
   constructor(props) {
     super(props)
