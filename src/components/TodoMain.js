@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import TodoListItem from './TodoListItem'
 
 // https://scotch.io/tutorials/create-a-simple-to-do-app-with-react
@@ -9,7 +10,6 @@ export default class TodoMain extends Component {
 
     this.state = {
       currentNewTodoText: '',
-      todoList: [],
     }
 
     this.onInputChange = this.onInputChange.bind(this)
@@ -24,25 +24,17 @@ export default class TodoMain extends Component {
   }
 
   onNewTodoButtonClick() {
-    const newTodoList = this.state.todoList.slice()
-    newTodoList.push({
+    this.props.addNewTodo({
       text: this.state.currentNewTodoText,
       timestamp: new Date().getTime(),
     })
     this.setState({
-      todoList: newTodoList,
       currentNewTodoText: '',
     })
   }
 
   onDoneButtonClicked(timestamp) {
-    const filteredTodoList = this.state.todoList.filter(todo => (todo.timestamp !== timestamp))
-    if (filteredTodoList.length !== this.state.todoList.length) {
-      this.setState({
-        todoList: filteredTodoList,
-        currentNewTodoText: this.state.currentNewTodoText,
-      })
-    }
+    this.props.deleteTodo(timestamp)
   }
 
   render() {
@@ -62,12 +54,29 @@ export default class TodoMain extends Component {
           <h3>My Todo List</h3>
           <ul>
             {
-              this.state.todoList.map(todo =>
-                (<TodoListItem {...todo} onDoneButtonClicked={this.onDoneButtonClicked} />))
+              this.props.todoList.map(todo =>
+                (
+                  <TodoListItem
+                    key={todo.timestamp}
+                    {...todo}
+                    onDoneButtonClicked={this.onDoneButtonClicked}
+                  />))
             }
           </ul>
         </div>
       </div>
     )
   }
+}
+
+TodoMain.propTypes = {
+  todoList: PropTypes.arrayOf(PropTypes.object),
+  addNewTodo: PropTypes.func,
+  deleteTodo: PropTypes.func,
+}
+
+TodoMain.defaultProps = {
+  todoList: [],
+  addNewTodo: () => {},
+  deleteTodo: () => {},
 }

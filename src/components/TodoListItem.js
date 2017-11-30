@@ -7,7 +7,7 @@ const TodoListItem = ({ timestamp, text, onDoneButtonClicked }) => {
   }
 
   return (
-    <li><button key={timestamp} onClick={onButtonClicked}>Done</button> { text }</li>
+    <li><button onClick={onButtonClicked}>Done</button> <div id="todo_text">{ text }</div></li>
   )
 }
 
