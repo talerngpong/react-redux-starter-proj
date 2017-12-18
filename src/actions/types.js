@@ -1,0 +1,10 @@
+const DEFAULT = 'DEFAULT'
+
+const ADD_NEW_TODO = 'ADD_NEW_TODO'
+const DELETE_TODO = 'DELETE_TODO'
+
+export {
+  DEFAULT,
+  ADD_NEW_TODO,
+  DELETE_TODO,
+}
