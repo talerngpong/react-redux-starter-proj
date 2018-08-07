@@ -1,6 +1,8 @@
 import { ADD_NEW_TODO, DELETE_TODO } from '../actions/types'
 
-const todoListReducer = (state, action) => {
+const initialState = []
+
+const todoListReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_NEW_TODO: {
       const newState = state.slice()
